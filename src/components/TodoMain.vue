@@ -5,15 +5,14 @@
     <main>
       <div class="todos">
         <div class="write">
-          <input type="text"/>
-          <button class="btn add">Add</button>
+          <input type="text" v-model="addItemText"/>
+          <button @click="addItem" class="btn add">Add</button>
         </div>
         <ul class="list">
             <ul>
                 <li v-for="item in todos" :key="item.text">
-                    <i class="far fa-check-square"></i>
-                    <strong>{{ item.text }}</strong>
-                    
+                    <i :class="[item.state === 'yet'?'far':'fas', 'fa-check-square']"></i>
+                    <strong>{{ item.text }}</strong>        
                 </li>
             </ul>
         </ul>
@@ -27,13 +26,19 @@
 export default {
     data() {
         return {
+        addItemText: '',
         todos:[
         {text: '공부하기', state: 'yet'},
         {text: '운동하기', state: 'done'},
         {text: '글쓰기', state: 'done'},
       ]
         }
+    },
+    methods: {
+    addItem() {
+        this.todos.push({text: this.addItemText, state: 'yet'},)
     }
+}
 }
 </script>
 
